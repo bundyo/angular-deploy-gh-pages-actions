@@ -3820,12 +3820,15 @@ function run() {
             const buildFolder = core_1.getInput('angular_dist_build_folder');
             const angularProjectDir = core_1.getInput('angular_project_dir');
             const deployBranch = core_1.getInput('deploy_branch');
+            const skipNpmInstall = core_1.getInput('skip_npm_install');
             // if the angular project directory is not the current directory
             if (angularProjectDir !== './' && angularProjectDir !== '') {
                 workspaceDir = process.cwd();
                 helpers_1.navigateToDirectory(angularProjectDir);
             }
-            yield commands.installDeps();
+            if (!skipNpmInstall) {
+                yield commands.installDeps();
+            }
             yield commands.runLint(shouldRunLint);
             yield commands.createBuild({
                 baseHref,

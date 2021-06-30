@@ -13,13 +13,16 @@ async function run(): Promise<void> {
     const buildFolder = getInput('angular_dist_build_folder')
     const angularProjectDir = getInput('angular_project_dir')
     const deployBranch = getInput('deploy_branch')
+    const skipNpmInstall = getInput('skip_npm_install')
 
     // if the angular project directory is not the current directory
     if (angularProjectDir !== './' && angularProjectDir !== '') {
       workspaceDir = process.cwd()
       navigateToDirectory(angularProjectDir)
     }
-    await commands.installDeps()
+    if (!skipNpmInstall) {
+      await commands.installDeps()
+    }
     await commands.runLint(shouldRunLint)
     await commands.createBuild({
       baseHref,

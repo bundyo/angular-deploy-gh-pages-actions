@@ -9,6 +9,9 @@ inputs:
   github_access_token:
     description: "Github access token token used to deploy on gh_pages. You can find it on Github."
     required: true
+  skip_npm_install:
+    description: "Skip the initial npm install - useful when you want to run it separately."
+    default: false
   project_name:
     description: "The angular project that we want to deploy"
   angular_project_dir:
